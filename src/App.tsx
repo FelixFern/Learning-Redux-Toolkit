@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./app/store";
-import { decrement, increment } from "./features/counter/counterSlice";
+import {
+	decrement,
+	increment,
+	incrementByAmount,
+} from "./features/counter/counterSlice";
 import { useState } from "react";
 import "./index.css";
 
@@ -22,7 +26,7 @@ function App() {
 				</button>
 				<h1>{count}</h1>
 				<button
-					className="px-2 border-2 border-slate-500"
+					className="px-2 border-2 border-slate-800"
 					onClick={() => {
 						dispatch(increment());
 					}}
@@ -30,12 +34,20 @@ function App() {
 					+
 				</button>
 			</div>
-			<div></div>
-			<input
-				type="number"
-				onChange={(e) => setInput(parseInt(e.target.value))}
-				value={input}
-			/>
+			<form
+				className="py-4"
+				onSubmit={(e) => {
+					dispatch(incrementByAmount(input));
+					e.preventDefault();
+				}}
+			>
+				<input
+					type="number"
+					onChange={(e) => setInput(parseInt(e.target.value))}
+					value={input}
+					className="border-2 border-slate-800"
+				/>
+			</form>
 		</>
 	);
 }
